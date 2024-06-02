@@ -36,7 +36,7 @@ poetry config virtualenvs.create false --local
 ```
 
 ``` bash 
-poetry add pandas numpy matplotlib seaborn torch optuna mlflow jupyter ipykernel
+poetry add pandas numpy matplotlib seaborn torch optuna mlflow jupyter ipykernel tensorboard
 ```
 
 Opcional:
