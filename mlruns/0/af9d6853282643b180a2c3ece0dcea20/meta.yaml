@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/af9d6853282643b180a2c3ece0dcea20/artifacts
+end_time: 1717506836109
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: af9d6853282643b180a2c3ece0dcea20
+run_name: lyrical-elk-540
+run_uuid: af9d6853282643b180a2c3ece0dcea20
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717506699071
+status: 3
+tags: []
+user_id: alexa

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/ed3fb910d0e94ba2a9455c25390dab7b/artifacts
+end_time: 1717506570046
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ed3fb910d0e94ba2a9455c25390dab7b
+run_name: righteous-panda-855
+run_uuid: ed3fb910d0e94ba2a9455c25390dab7b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717506430660
+status: 3
+tags: []
+user_id: alexa

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/805461588f1c4bb6bc5e0860808a3222/artifacts
+end_time: 1717507017707
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 805461588f1c4bb6bc5e0860808a3222
+run_name: kindly-snipe-623
+run_uuid: 805461588f1c4bb6bc5e0860808a3222
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717506877420
+status: 3
+tags: []
+user_id: alexa

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/6e1c02f8fd774f90824419f7546e9320/artifacts
+end_time: 1717505933399
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6e1c02f8fd774f90824419f7546e9320
+run_name: stately-stork-602
+run_uuid: 6e1c02f8fd774f90824419f7546e9320
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717505922707
+status: 4
+tags: []
+user_id: alexa

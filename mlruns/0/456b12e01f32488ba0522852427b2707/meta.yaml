@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/456b12e01f32488ba0522852427b2707/artifacts
+end_time: 1717505417558
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 456b12e01f32488ba0522852427b2707
+run_name: nimble-calf-999
+run_uuid: 456b12e01f32488ba0522852427b2707
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717505409113
+status: 4
+tags: []
+user_id: alexa

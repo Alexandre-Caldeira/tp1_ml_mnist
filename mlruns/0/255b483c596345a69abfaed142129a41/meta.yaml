@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/255b483c596345a69abfaed142129a41/artifacts
+end_time: 1717506424851
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 255b483c596345a69abfaed142129a41
+run_name: sedate-squirrel-145
+run_uuid: 255b483c596345a69abfaed142129a41
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717506422468
+status: 4
+tags: []
+user_id: alexa
