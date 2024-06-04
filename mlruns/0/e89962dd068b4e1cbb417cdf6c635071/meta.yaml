@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/e89962dd068b4e1cbb417cdf6c635071/artifacts
+end_time: 1717511670085
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e89962dd068b4e1cbb417cdf6c635071
+run_name: exultant-shad-231
+run_uuid: e89962dd068b4e1cbb417cdf6c635071
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717511658352
+status: 4
+tags: []
+user_id: alexa

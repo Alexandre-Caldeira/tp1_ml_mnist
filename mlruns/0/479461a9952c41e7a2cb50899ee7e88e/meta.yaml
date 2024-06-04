@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/479461a9952c41e7a2cb50899ee7e88e/artifacts
+end_time: 1717512917664
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 479461a9952c41e7a2cb50899ee7e88e
+run_name: shivering-grub-429
+run_uuid: 479461a9952c41e7a2cb50899ee7e88e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717512840236
+status: 3
+tags: []
+user_id: alexa

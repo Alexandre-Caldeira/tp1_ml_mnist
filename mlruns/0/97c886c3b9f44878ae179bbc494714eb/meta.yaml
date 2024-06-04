@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/97c886c3b9f44878ae179bbc494714eb/artifacts
+end_time: 1717512160327
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 97c886c3b9f44878ae179bbc494714eb
+run_name: omniscient-stoat-381
+run_uuid: 97c886c3b9f44878ae179bbc494714eb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717512096595
+status: 4
+tags: []
+user_id: alexa
