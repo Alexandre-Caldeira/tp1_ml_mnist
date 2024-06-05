@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/PPGEE/DCC831%20Aprendizado%20de%20Maquina/tp1_ml_mnist/tp1ml_mnist_proj/tp1ml_mnist_proj/mlruns/0/4eae6d93bed141ad911830a01e9cc499/artifacts
+end_time: 1717603305841
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4eae6d93bed141ad911830a01e9cc499
+run_name: Test Experiment 1
+run_uuid: 4eae6d93bed141ad911830a01e9cc499
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717603303698
+status: 4
+tags: []
+user_id: alexa

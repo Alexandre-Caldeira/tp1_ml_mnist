@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/PPGEE/DCC831%20Aprendizado%20de%20Maquina/tp1_ml_mnist/tp1ml_mnist_proj/tp1ml_mnist_proj/mlruns/680587798462940491/18e0a2c48afc45e481145e0398068592/artifacts
+end_time: 1717603542895
+entry_point_name: ''
+experiment_id: '680587798462940491'
+lifecycle_stage: active
+run_id: 18e0a2c48afc45e481145e0398068592
+run_name: 'Test #9 - lr(10) hds(100) bs(3350)'
+run_uuid: 18e0a2c48afc45e481145e0398068592
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717603542107
+status: 3
+tags: []
+user_id: alexa
