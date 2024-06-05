@@ -49,3 +49,9 @@ poetry show
 if installation fails on Windows, try running on cmd instead of PowerShell (windows terminal). Not sure why yet, but  that doesn't work.
 
 ## Solução:
+
+Ative o servidor local mlflow para rastrear os resultados obtidos, usando:
+``` bash 
+conda activate tp1ml
+mlflow server --host 127.0.0.1 --port 8080
+``` 
