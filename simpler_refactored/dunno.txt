@@ -1,0 +1,233 @@
+from torch.utils.data import DataLoader, Dataset
+import torch
+
+from sklearn.model_selection import train_test_split
+
+y = data.y.values
+X = data.drop(columns='y').values
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.33, random_state=42)
+
+print(X_train.shape)
+print(y_train.shape)
+idx = 0
+print((X_train[idx,:]).shape)
+print(y_train[idx])
+(y_train[idx]).shape 
+
+# Pytorch exige que seja utilizado um dataset por algum motivo aparentemente
+class custom_mnist_dataset():
+    def __init__(self, X,y):
+        self.X = X
+        self.y = y
+
+    def __len__(self):
+        return len(self.X)
+
+    def __getitem__(self, idx):
+        # Restrições de uso do pytorch: (leia os docs...)
+        # inputs tem que ser float para multiplicar pelos pesos, 
+        # outputs tem que ser longint para calcular crossentropy 
+        return torch.tensor(self.X[idx,:], dtype=torch.float), self.y[idx]
+
+training_data = custom_mnist_dataset(X = X_train, y = y_train)
+test_data = custom_mnist_dataset(X = X_test, y = y_test)
+
+# batch_size de exemplo para teste
+batch_size = 25
+
+# Create data loaders.
+train_dataloader = DataLoader(training_data, batch_size=batch_size)
+test_dataloader = DataLoader(test_data, batch_size=batch_size)
+
+for X, y in test_dataloader:
+    print(f"Shape, type: X: {X.shape} {X.dtype}")
+    print(f"Shape, type: y: {y.shape} {y.dtype}")
+    break
+    
+# Get cpu, gpu or mps device for training.
+device = (
+    "cuda"
+    if torch.cuda.is_available()
+    else "mps"
+    if torch.backends.mps.is_available()
+    else "cpu"
+)
+print(f"Using {device} device")
+
+from torch import nn
+import torch.nn.functional as F
+
+"""
+NeuralNetwork with  ...
+"""
+class NeuralNetwork(nn.Module):
+    def __init__(self, input_size, hidden_dim, output_size):
+        super(NeuralNetwork, self).__init__()
+
+        self.entrada = nn.Linear(input_size, hidden_dim)
+        self.oculta = nn.Linear(hidden_dim, hidden_dim)
+        self.saida = nn.Linear(hidden_dim, output_size)
+
+    def forward(self, input):
+
+        x1 = self.entrada(input)
+        x2 = F.sigmoid(self.oculta(x1))
+        x3 = self.saida(x2)
+
+        return x3
+    
+# hidden dim = 25,50,100
+print(NeuralNetwork(input_size = X_train.shape[1], hidden_dim= 25, output_size=10).to(device))
+
+# https://www.kaggle.com/code/shrutimechlearn/pytorch-custom-model-step-by-step
+
+def train_step(model, loss_func, optimizer, dataloader):
+    
+    # to capture loss
+    train_loss = 0 
+
+    # to get the model in training mode
+    model.train()
+    
+    for batch, (x_batch, y_batch) in enumerate(dataloader):
+        # sending data to the device where rest of the artifacts are
+        x_batch, y_batch = x_batch.to(device), y_batch.to(device)
+        
+        # forward pass/model prediction with the given input
+        y_pred = model(x_batch)
+        
+        # loss calculation by comparison between predicted and ground truth values
+        loss = loss_func(y_pred, y_batch)
+        train_loss += loss.item()
+    
+        # setting previously collected gradient values in the optimizer to zero so it translates only current gradients
+        optimizer.zero_grad()
+        
+        # calculate the gradients for this iteration (independent gradients because previous values have been reset to 0)
+        loss.backward()
+        
+        # update the weights and biases based on the calculated gradients ~(wi = wi + delta_wi)
+        optimizer.step()
+
+    # Adjust metrics to get average loss and accuracy per batch 
+    train_loss = train_loss / len(dataloader)
+
+    return train_loss
+
+def test_step(model, loss_func, test_dataloader):
+    
+    test_loss = 0
+    
+    model.eval()
+    
+    
+    with torch.inference_mode():
+        
+        for batch, (x_batch, y_batch) in enumerate(test_dataloader):
+            
+            x_batch, y_batch = x_batch.to(device), y_batch.to(device)
+            y_pred = model(x_batch)
+            
+            loss = loss_func(y_pred, y_batch)
+            test_loss+= loss.item()
+
+    test_loss = test_loss/len(test_dataloader)   
+
+    return test_loss
+
+import mlflow
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from torch import optim
+
+def eval_step_with_mlflowlogging(model,test_dataloader):
+        
+    with torch.no_grad():
+        model.eval()
+        total_preds = []
+        total_labels = []
+        for inputs, labels in test_dataloader:
+            outputs = model(inputs)
+            _, preds = torch.max(outputs, dim=1)
+            total_preds.extend(preds.cpu().numpy())
+            total_labels.extend(labels.cpu().numpy())
+
+    accuracy = accuracy_score(total_labels, total_preds)
+    precision = precision_score(total_labels, total_preds, average='weighted', labels=np.unique(total_preds))
+    recall = recall_score(total_labels, total_preds, average='weighted', labels=np.unique(total_preds))
+    f1 = f1_score(total_labels, total_preds, average='weighted', labels=np.unique(total_preds))
+
+    return accuracy, precision, recall, f1
+
+def train_with_mlflowlogging(model, loss_func, optimizer, train_dataloader, test_dataloader, n_epochs, i,lr,hds,bs):
+    with mlflow.start_run(run_name=f"Test #{i} - lr({lr}) hds({hds}) bs({bs})", nested = True):  # Name each run based on the learning rate
+        mlflow.log_param("batch_size", bs)
+        mlflow.log_param("hidden_dim", hds)
+        mlflow.log_param("lr", lr)
+        
+        train_loss = []
+        test_loss = []
+    
+        for epoch in range(n_epochs):
+            
+            tr_loss = train_step(model, loss_func, optimizer, train_dataloader)
+            train_loss.append(tr_loss)
+        
+            ts_loss = test_step(model, loss_func, test_dataloader)
+            test_loss.append(ts_loss)    
+
+            accuracy, precision, recall, f1 = eval_step_with_mlflowlogging(model, test_dataloader)
+            
+            mlflow.log_metric("loss", tr_loss, step = epoch)
+            mlflow.log_metric("val_loss", ts_loss, step = epoch)
+            mlflow.log_metric("diff_loss_tr_ts", tr_loss-ts_loss, step = epoch)
+
+            mlflow.log_metric("loss", tr_loss, step = epoch)
+            mlflow.log_metric("val_loss", ts_loss, step = epoch)
+
+            mlflow.log_metric("accuracy", accuracy, step = epoch)
+            mlflow.log_metric("precision", precision, step = epoch)
+            mlflow.log_metric("recall", recall, step = epoch)
+            mlflow.log_metric("f1", f1, step = epoch)   
+
+    return train_loss, test_loss
+
+# Set up MLflow tracking URI
+mlflow.set_tracking_uri('http://localhost:5000')
+mlflow.autolog()
+
+learning_rates = [0.5, 1, 10]
+hidden_dim_sizes = [25, 50, 100]
+batch_sizes = [1, 10, 50, len(training_data)]
+
+mlflow_exp = mlflow.set_experiment(experiment_name  = 'TP1ML_automation_test')
+
+with mlflow.start_run(run_name="Test Experiment 3", experiment_id = mlflow_exp.experiment_id):
+    
+    for i_hds, hds in enumerate(hidden_dim_sizes, start = 1):
+        for i_bs, bs in enumerate(batch_sizes, start = 1):
+            for i_lr, lr in enumerate(learning_rates, start=1):
+                for rep in range(1,4):
+                    # Define your model here
+                    train_dataloader = DataLoader(training_data, batch_size=bs)
+                    test_dataloader = DataLoader(test_data, batch_size=bs)
+
+                    model = NeuralNetwork(input_size = X_train.shape[1], hidden_dim= hds, output_size=10).to(device)
+
+                    loss_func = nn.CrossEntropyLoss()
+                    
+                    optimizer = optim.SGD(model.parameters(), lr=lr)
+
+                    train_loss, test_loss = train_with_mlflowlogging(
+                        model, 
+                        loss_func, 
+                        optimizer, 
+                        train_dataloader, 
+                        test_dataloader, 
+                        n_epochs= 50,
+                        i=i_lr+i_hds+i_bs,
+                        lr=lr,hds=hds,bs=bs
+                    )
+    
+            
