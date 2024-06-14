@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/540840546672567319/4d4dcc9322fa4c5397cda1f6aead1d9f/artifacts
+end_time: 1718386959677
+entry_point_name: ''
+experiment_id: '540840546672567319'
+lifecycle_stage: active
+run_id: 4d4dcc9322fa4c5397cda1f6aead1d9f
+run_name: 'Testi '
+run_uuid: 4d4dcc9322fa4c5397cda1f6aead1d9f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1718386947751
+status: 3
+tags: []
+user_id: alexa
