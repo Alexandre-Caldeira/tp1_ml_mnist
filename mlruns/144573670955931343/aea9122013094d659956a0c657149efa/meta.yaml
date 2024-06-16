@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/144573670955931343/aea9122013094d659956a0c657149efa/artifacts
+end_time: 1718546298734
+entry_point_name: ''
+experiment_id: '144573670955931343'
+lifecycle_stage: active
+run_id: aea9122013094d659956a0c657149efa
+run_name: 'Test  #4'
+run_uuid: aea9122013094d659956a0c657149efa
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1718546271023
+status: 3
+tags: []
+user_id: alexa
